@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "kawai-focus"
+version = "0.1.0"
+description = "Kawai.Focus - приложение для фокусировки внимания на основе таймера Pomodoro."
+authors = ["Arduinum <message.chaos628@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "kawai_focus"}]
+
+[tool.poetry.dependencies]
+python = "3.12.0"
+kivy = "^2.3.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+kawai-focus = "kawai_focus.main:main"
