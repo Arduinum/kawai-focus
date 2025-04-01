@@ -1,0 +1,37 @@
+#:kivy 2.3.1
+
+<TimerScreen>:
+    FloatLayout:
+        # Кнопка "Старт"
+        Button:
+            text: 'Старт'
+            size_hint: None, None
+            height: 40
+            width: 100
+            pos_hint: {'center_x': 0.3, 'center_y': 0.5}
+            on_release: root.start_timer(self)
+
+        # Кнопка "Пауза"
+        Button:
+            text: 'Пауза'
+            size_hint: None, None
+            height: 40
+            width: 100
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            on_release: root.pause_timer(self)
+
+        # Кнопка "Стоп"
+        Button:
+            text: 'Стоп'
+            size_hint: None, None
+            height: 40
+            width: 100
+            pos_hint: {'center_x': 0.7, 'center_y': 0.5}
+            on_release: root.stop_timer(self)
+
+        # Label для отображения времени
+        Label:
+            id: time_label
+            text: '00:00:12'
+            size_hint: None, None
+            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
