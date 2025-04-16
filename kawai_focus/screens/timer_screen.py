@@ -2,23 +2,22 @@ from kivy.uix.screenmanager import Screen
 from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 
-
-from kawai_focus.utils.utils import custom_timer
-from kawai_focus.utils.data_json import read_json_timer
+from kawai_focus.utils.utils import custom_timer, data_json
+from kawai_focus.utils.validators import TimerValidator
 
 
 class TimerScreen(Screen):
     """Экран таймера"""
 
-    sound_timer_name = read_json_timer.get_text('sound_timer')
+    sound_timer_name = data_json.get_text('sound_timer')
     path_file = f'sounds/{sound_timer_name}'
     sound = SoundLoader.load(path_file)
 
     def __init__(self, **kwargs):
         super(TimerScreen, self).__init__(**kwargs)
         # Переменные для управления таймером
-        self.zero_time = read_json_timer.get_text('zero_time')
-        self.timer_generator = None
+        self.zero_time = data_json.get_text('zero_time')
+        self.timer_generator = None 
         self.paused = False
         self.remaining_time = None
         self.sound_stop_event = None
@@ -30,7 +29,8 @@ class TimerScreen(Screen):
             self.paused = False
         else:
             # Инициализация генератора таймера
-            self.timer_generator = custom_timer(ss=12)  # Установите необходимое время
+            vaid_timer_data = TimerValidator(ss=12)  # Установите необходимое время
+            self.timer_generator = custom_timer(valid_data=vaid_timer_data)
             self.remaining_time = next(self.timer_generator, self.zero_time)
         
         # Запуск обновления времени каждую секунду
@@ -51,7 +51,7 @@ class TimerScreen(Screen):
         Clock.unschedule(self.update_time)
         self.paused = False
         # TODO: временное решение, время будет задаваться в интерфейсе
-        self.remaining_time = read_json_timer.get_text('custom_time')
+        self.remaining_time = data_json.get_text('custom_time')
         self.ids.time_label.text = self.remaining_time
 
         self.sound.stop()
