@@ -4,7 +4,7 @@ from os import path, listdir
 
 from kawai_focus.main import Logger
 from kawai_focus.utils.errors import ErrorMessage
-from kawai_focus.utils.validators import TimerValidator
+from kawai_focus.schemas import TimerTimeModel
 
 
 class ReadJson:
@@ -44,7 +44,7 @@ class ReadJson:
 data_json = ReadJson(folder_json='json')
 
 
-def custom_timer(valid_data: TimerValidator) -> Generator[str, None, None]:
+def custom_timer(valid_data: TimerTimeModel) -> Generator[str, None, None]:
     """Функция отсчитывает время, установленное для таймера в формате 
     'hh:mm:ss'. Возвращает генератор, который возвращает текущее время
     в формате 'hh:mm:ss'."""

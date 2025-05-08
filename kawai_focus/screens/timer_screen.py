@@ -3,7 +3,7 @@ from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 
 from kawai_focus.utils.utils import custom_timer, data_json
-from kawai_focus.utils.validators import TimerValidator
+from kawai_focus.schemas import TimerTimeModel
 
 
 class TimerScreen(Screen):
@@ -29,7 +29,7 @@ class TimerScreen(Screen):
             self.paused = False
         else:
             # Инициализация генератора таймера
-            vaid_timer_data = TimerValidator(ss=12)  # Установите необходимое время
+            vaid_timer_data = TimerTimeModel(ss=12)  # Установите необходимое время
             self.timer_generator = custom_timer(valid_data=vaid_timer_data)
             self.remaining_time = next(self.timer_generator, self.zero_time)
         
