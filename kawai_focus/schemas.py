@@ -3,7 +3,7 @@ from kawai_focus.utils.errors import ErrorMessage
 
 
 class TimerModel(BaseModel):
-    """Модель для валидации данных таймера"""
+    """Модель схемы данных таймера"""
 
     id: int | None = None
     title: str
@@ -13,8 +13,15 @@ class TimerModel(BaseModel):
     count_pomodoro: int
 
 
+class TimerListModel(BaseModel):
+    """Модель схемы данных таймера для списка"""
+
+    id: int
+    title: str
+
+
 class TimerTimeModel(BaseModel):
-    """Модель для валидации времени таймера"""
+    """Модель схемы данных времени таймера"""
 
     hh: int = Field(0, ge=0, le=23)
     mm: int = Field(0, ge=0, le=59)

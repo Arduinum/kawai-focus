@@ -1,57 +1,78 @@
-from sqlalchemy import select, insert
-from sqlalchemy.exc import SQLAlchemyError, OperationalError, NoResultFound
-from pydantic import ValidationError
+from sqlalchemy import select, insert, update, delete
+from sqlalchemy.exc import NoResultFound
 
-from kawai_focus.schemas import TimerModel
+from kawai_focus.schemas import TimerModel, TimerListModel
 from kawai_focus.database.session import db
 from kawai_focus.database.models import Timer
-from kawai_focus.main import Logger
+from kawai_focus.utils.errors import ErrorMessage
+from kawai_focus.database.decor_erors import crud_error_guard
 
 
+@crud_error_guard
 def get_timer(timer_id: int) -> TimerModel:
     """Функция для получения данных таймера"""
 
-    try:
-        with db.get_session() as session:
-            timer_model = Timer 
-            query = select(
-                timer_model.id, 
-                timer_model.title,
-                timer_model.pomodoro_time, 
-                timer_model.break_time, 
-                timer_model.break_long_time,
-                timer_model.count_pomodoro
-            ).where(timer_id == timer_model.id)
-            result = session.execute(query)
-            timer = result.mappings().first()
+    with db.get_session() as session:
+        query = select(
+            Timer.id, 
+            Timer.title,
+            Timer.pomodoro_time, 
+            Timer.break_time, 
+            Timer.break_long_time,
+            Timer.count_pomodoro
+        ).where(timer_id == Timer.id)
+        result = session.execute(query)
+        timer = result.mappings().first()
 
-            return TimerModel.model_validate(obj=timer, from_attributes=True)
-    except (ConnectionError, SQLAlchemyError, TimeoutError, OperationalError, ValidationError, NoResultFound) as err:
-        Logger.error(f'{err.__class__.__name__}: {err}')
+        return TimerModel.model_validate(obj=timer, from_attributes=True)
 
 
-def new_timer(data: TimerModel) -> bool | None:
+@crud_error_guard
+def list_timers() -> list[TimerListModel]:
+    """Функция для получения списка таймеров"""
+
+    with db.get_session() as session:
+        query = select(Timer.id, Timer.title)
+        result = session.execute(query)
+        timers = result.mappings().fetchall()
+        
+        return [TimerListModel.model_validate(obj=accept, from_attributes=True) for accept in timers]
+
+
+@crud_error_guard
+def new_timer(data: TimerModel) -> TimerModel:
     """Функция для создания нового таймера"""
 
-    try:
-        with db.get_session() as session:
-            timer_model = Timer
-            query = insert(timer_model).values(**data.model_dump())
-            session.execute(query)
-            session.commit()
-    except (ConnectionError, SQLAlchemyError, TimeoutError, OperationalError, ValidationError) as err:
-        Logger.error(f'{err.__class__.__name__}: {err}')
-    else:
-        return True
+    with db.get_session() as session:
+        query = insert(Timer).values(**data.model_dump()).returning(Timer)
+        result = session.execute(query)
+        
+        new_timer = result.scalar_one()
+        session.commit()
+
+        return TimerModel.model_validate(obj=new_timer, from_attributes=True)
 
 
-if __name__ == '__main__':
-    # new_timer(data=TimerValidModel(
-    #     title='test_timer_2',
-    #     pomodoro_time=50,
-    #     break_long_time=25,
-    #     break_time=5,
-    #     count_pomodoro=4
-    # ))
+@crud_error_guard
+def update_timer(data: TimerModel) -> TimerModel:
+    """Функция для обновления таймера"""
 
-    print(get_timer(timer_id=1))
+    with db.get_session() as session:
+        query = update(Timer).values(**data.model_dump()).where(data.id == Timer.id).returning(Timer)
+        result = session.execute(query)
+        
+        updated_timer = result.scalar_one()
+        session.commit()
+
+        return TimerModel.model_validate(obj=updated_timer, from_attributes=True)
+
+
+@crud_error_guard
+def del_timer(timer_id: int) -> None:
+    """Функция для удаления таймера"""
+
+    with db.get_session() as session:
+        query = delete(Timer).where(timer_id == Timer.id)
+        session.execute(query)
+
+        session.commit()

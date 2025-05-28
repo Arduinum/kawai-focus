@@ -3,12 +3,13 @@ import json
 from os import path, listdir
 
 from kawai_focus.main import Logger
-from kawai_focus.utils.errors import ErrorMessage
 from kawai_focus.schemas import TimerTimeModel
+from kawai_focus.utils.errors import ErrorMessage
 
 
 class ReadJson:
     """Класс для чтения всех JSON-файлов в директории и объединения их в словарь."""
+
 
     def __init__(self, folder_json: str):
         self.folder_json = folder_json
