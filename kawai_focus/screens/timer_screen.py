@@ -21,6 +21,7 @@ class TimerScreen(Screen):
         self.paused = False
         self.remaining_time = None
         self.sound_stop_event = None
+        self.timer = None
 
     def start_timer(self, instance) -> None:
         """Метод для запуска таймера"""
@@ -29,8 +30,8 @@ class TimerScreen(Screen):
             self.paused = False
         else:
             # Инициализация генератора таймера
-            vaid_timer_data = TimerTimeModel(ss=12)  # Установите необходимое время
-            self.timer_generator = custom_timer(valid_data=vaid_timer_data)
+            self.valid_timer_data = TimerTimeModel(mm=self.timer.pomodoro_time)
+            self.timer_generator = custom_timer(valid_data=self.valid_timer_data)
             self.remaining_time = next(self.timer_generator, self.zero_time)
         
         # Запуск обновления времени каждую секунду
@@ -50,9 +51,13 @@ class TimerScreen(Screen):
         # Остановка обновления времени
         Clock.unschedule(self.update_time)
         self.paused = False
-        # TODO: временное решение, время будет задаваться в интерфейсе
-        self.remaining_time = data_json.get_text('custom_time')
-        self.ids.time_label.text = self.remaining_time
+        self.remaining_time = TimerTimeModel(mm=self.timer.pomodoro_time).mm
+        # Todo: временное решение: нужно сделать механизм для 
+        # автоматического рассчёта часов, минут и секунд из 
+        # колличества минут, введённого пользователем
+        self.ids.time_label.text = f'00:{
+            "0" + str(self.remaining_time) if self.remaining_time <= 9 else self.remaining_time
+        }:00'
 
         self.sound.stop()
 

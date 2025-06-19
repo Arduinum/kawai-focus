@@ -9,6 +9,7 @@ from kivy.logger import Logger
 import logging
 
 from kawai_focus.screens.timer_screen import TimerScreen
+from kawai_focus.screens.timer_constructor_screen import TimerConstructorScreen
 
 
 Logger.setLevel(logging.DEBUG)
@@ -22,8 +23,10 @@ class KawaiFocusApp(App):
     def build(self):
         # Загрузка kv файла
         Builder.load_file('kv/timer_screen.kv')
+        Builder.load_file('kv/timer_constructor_screen.kv')
 
         screen_manager = ScreenManager()
+        screen_manager.add_widget(TimerConstructorScreen(name='timer_constructor_screen'))
         screen_manager.add_widget(TimerScreen(name='timers_screen'))
         return screen_manager
 
