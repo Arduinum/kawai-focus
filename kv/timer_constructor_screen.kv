@@ -10,6 +10,15 @@
             pos_hint: {"center_x": 0.5, "center_y": 0.9}
             hint_text: "название"
         
+        Label:
+            id: title_error
+            text: ""
+            color: (1, 0.3, 0.3, 1)
+            font_size: 14
+            size_hint_y: None
+            height: 20
+            pos_hint: {"center_x": 0.5, "center_y": 0.8}
+
         # числовой счётчик "время помидора"
         Label:
             text: "помидор"
@@ -25,6 +34,7 @@
 
         TimeTomatoInput:
             id: time_tomato_input
+            disabled: True
             size_hint: None, None
             size: 40, 30
             pos_hint: {"center_x": 0.6, "center_y": 0.7}
@@ -51,6 +61,7 @@
 
         TimeBreakInput:
             id: time_break_input
+            disabled: True
             size_hint: None, None
             size: 40, 30
             pos_hint: {"center_x": 0.6, "center_y": 0.6}
@@ -77,6 +88,7 @@
 
         TimeLoongBreakInput:
             id: time_long_break_input
+            disabled: True
             size_hint: None, None
             size: 40, 30
             pos_hint: {"center_x": 0.6, "center_y": 0.5}
@@ -103,6 +115,7 @@
 
         CountTomatosInput:
             id: count_tomatos_input
+            disabled: True
             size_hint: None, None
             size: 40, 30
             pos_hint: {"center_x": 0.6, "center_y": 0.4}

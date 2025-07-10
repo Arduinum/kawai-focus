@@ -1,52 +1,95 @@
 from kivy.uix.textinput import TextInput
 
 
-
-class BaseNumInput(TextInput):
-    """Базовый класс для поля числа"""
-    
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.text = '0'
-        self.halign = 'center'
+class BaseNumBehavior:
+    """Псевдо-интерфейс для числового ввода"""
 
     def increment(self):
-        """Метод для прибавки 1"""
-
-        self.text = str(int(self.text) + 1)
+        raise NotImplementedError('Метод increment() должен быть реализован')
 
     def decrement(self):
-        """Метод для вычитания 1"""
-        
-        self.text = str(int(self.text) - 1)
+        raise NotImplementedError('Метод decrement() должен быть реализован')
 
 
-class TimeTomatoInput(BaseNumInput):
+class TimeTomatoInput(TextInput, BaseNumBehavior):
     """Класс для поля ввода колличества помидорово"""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text = '25'
+        self.halign = 'center'
+
+    def increment(self):
+        """Метод для прибавки 1"""
+
+        if int(self.text) < 90:
+            self.text = str(int(self.text) + 1)
+    
+    def decrement(self):
+        """Метод для вычитания 1"""
+        
+        if int(self.text) > 10:
+            self.text = str(int(self.text) - 1)
 
 
-class TimeBreakInput(BaseNumInput):
+class TimeBreakInput(TextInput, BaseNumBehavior):
     """Класс для поля ввода времени перерыва"""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text = '5'
+        self.halign = 'center'
 
-class TimeLoongBreakInput(BaseNumInput):
+    def increment(self):
+        """Метод для прибавки 1"""
+
+        if int(self.text) < 10:
+            self.text = str(int(self.text) + 1)
+    
+    def decrement(self):
+        """Метод для вычитания 1"""
+        
+        if int(self.text) > 3:
+            self.text = str(int(self.text) - 1)
+
+
+class TimeLoongBreakInput(TextInput, BaseNumBehavior):
     """Класс для поля ввода времени длительного перерыва"""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text = '15'
+        self.halign = 'center'
+
+    def increment(self):
+        """Метод для прибавки 1"""
+
+        if int(self.text) < 40:
+            self.text = str(int(self.text) + 1)
+    
+    def decrement(self):
+        """Метод для вычитания 1"""
+        
+        if int(self.text) > 15:
+            self.text = str(int(self.text) - 1)
 
 
-class CountTomatosInput(BaseNumInput):
+class CountTomatosInput(TextInput, BaseNumBehavior):
     """Класс для поля ввода количества помидоров"""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text = '4'
+        self.halign = 'center'
+
+    def increment(self):
+        """Метод для прибавки 1"""
+
+        if int(self.text) < 8:
+            self.text = str(int(self.text) + 1)
+    
+    def decrement(self):
+        """Метод для вычитания 1"""
+        
+        if int(self.text) > 2:
+            self.text = str(int(self.text) - 1)
