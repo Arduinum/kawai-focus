@@ -25,9 +25,8 @@ class TimerTimeModel(BaseModel):
 
     hh: int = Field(0, ge=0, le=23)
     mm: int = Field(0, ge=0, le=59)
-    ss: int = Field(0, ge=0, le=59)
 
-    @field_validator('hh', 'mm', 'ss')
+    @field_validator('hh', 'mm')
     @classmethod
     def check_all_time_fields(cls, value: int) -> int:
         """Метод валидирует все поля времени"""

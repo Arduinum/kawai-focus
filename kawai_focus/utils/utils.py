@@ -2,7 +2,6 @@ from typing import Generator
 import json
 from os import path, listdir
 
-from kawai_focus.main import Logger
 from kawai_focus.schemas import TimerTimeModel
 from kawai_focus.utils.errors import ErrorMessage
 
@@ -45,16 +44,30 @@ class ReadJson:
 data_json = ReadJson(folder_json='json')
 
 
-def custom_timer(valid_data: TimerTimeModel) -> Generator[str, None, None]:
+def custom_timer(mm_user: int) -> Generator[str, None, None]:
     """Функция отсчитывает время, установленное для таймера в формате 
     'hh:mm:ss'. Возвращает генератор, который возвращает текущее время
     в формате 'hh:mm:ss'."""
 
-    try:
-        total_seconds = (int(valid_data.hh) * 3600) + (int(valid_data.mm) * 60) + (int(valid_data.ss))
+    total_seconds = mm_user * 60
 
-        for remaining in range(total_seconds, -1, -1):
-            yield f"{remaining // 3600:02d}:{(remaining % 3600) // 60:02d}:{remaining % 60:02d}"
-    except (TypeError, ValueError) as err:
-        Logger.error(f'Logger: {err.__class__.__name__}: {err}')
-    
+    for remaining in range(total_seconds, -1, -1):
+        yield f"{remaining // 3600:02d}:{(remaining % 3600) // 60:02d}:{remaining % 60:02d}"
+
+
+def calculate_time(mm_user: int) -> str:
+    """Функция для подсчёта часов, минут и секунд из минут"""
+
+    valid_data = None
+    hh = mm_user // 60
+    mm = mm_user % 60
+
+    if hh == 0:
+        valid_data = TimerTimeModel(mm=mm)
+    else:  
+        valid_data = TimerTimeModel(hh=hh, mm=mm)
+
+    return (
+        f"{'0' + str(valid_data.hh) if valid_data.hh <= 9 else valid_data.hh}:"
+        f"{'0' + str(valid_data.mm) if valid_data.mm <= 9 else valid_data.mm}:00"
+    )

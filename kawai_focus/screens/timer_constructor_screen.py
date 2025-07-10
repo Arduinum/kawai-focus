@@ -3,6 +3,8 @@ from kivy.uix.screenmanager import Screen
 from kawai_focus.custom_widgets.timer_wigets import TimeTomatoInput
 from kawai_focus.schemas import TimerModel
 from kawai_focus.database.cruds import new_timer
+from kawai_focus.utils.utils import calculate_time, custom_timer
+from kawai_focus.screens.validators_fields import validate_title
 
 
 class TimerConstructorScreen(Screen):
@@ -13,6 +15,12 @@ class TimerConstructorScreen(Screen):
     
     def create_timer(self, instance):
         """Метод для создания таймера"""
+
+        validate_title(self, self.ids.title.text)
+
+        # прекратить создание таймера если поле пустое
+        if not self.ids.title.text:
+            return  
 
         timer = new_timer(
             data=TimerModel(
@@ -27,12 +35,10 @@ class TimerConstructorScreen(Screen):
         if timer:
             screen_timer = self.manager.get_screen('timers_screen')
             screen_timer.timer = timer
-            # Todo: временное решение: нужно сделать механизм для 
-            # автоматического рассчёта часов, минут и секунд из 
-            # колличества минут, введённого пользователем
-            screen_timer.ids.time_label.text = f'00:{
-                "0" + str(timer.pomodoro_time) if timer.pomodoro_time <= 9 else timer.pomodoro_time
-            }:00'
+            time_culc = calculate_time(mm_user=timer.pomodoro_time)
+            screen_timer.timer_start_time = time_culc
+            screen_timer.ids.time_label.text = time_culc
+            screen_timer.timer_generator = custom_timer(mm_user=timer.pomodoro_time)
             self.manager.current = 'timers_screen'
 
 
