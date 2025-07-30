@@ -32,12 +32,18 @@ class TimerScreen(Screen):
         if current_timer_name == 'pomodoro':
             self.timer_generator = custom_timer(mm_user=self.timer.pomodoro_time)
             self.ids.time_label.text = calculate_time(mm_user=self.timer.pomodoro_time)
+            self.ids.type_timer_label.text = 'Помидор'
         elif current_timer_name == 'break':
             self.timer_generator = custom_timer(mm_user=self.timer.break_time)
             self.ids.time_label.text = calculate_time(mm_user=self.timer.break_time)
+            self.ids.type_timer_label.text = 'Перерыв'
         else:
             self.timer_generator = custom_timer(mm_user=self.timer.break_long_time)
             self.ids.time_label.text = calculate_time(mm_user=self.timer.break_long_time)
+            self.ids.type_timer_label.text = 'Перерывище'
+
+        self.ids.stop_button.opacity = 0
+        self.ids.stop_button.disabled = True
 
     def start_timer(self, instance) -> None:
         """Метод для запуска таймера"""
@@ -48,6 +54,9 @@ class TimerScreen(Screen):
             # Инициализация генератора таймера
             if len(self.manager.state_machine) and self.timer_generator is None:
                 self.check_timer()
+            
+            self.ids.stop_button.opacity = 1
+            self.ids.stop_button.disabled = False
             
             self.remaining_time = next(self.timer_generator, self.zero_time)
 
@@ -76,11 +85,10 @@ class TimerScreen(Screen):
             Clock.unschedule(self.sound_stop_event)
             self.sound_stop_event = None
 
-        if len(self.manager.state_machine):
-            self.check_timer()
-        else:
+        if not len(self.manager.state_machine):
             self.manager.state_machine = self.source_timer_names.copy()
-            self.check_timer()
+
+        self.check_timer()    
 
     def play_sound(self, dt) -> None:
         """Метод для воспроизведения звука"""

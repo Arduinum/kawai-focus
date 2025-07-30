@@ -38,6 +38,7 @@ class TimerConstructorScreen(Screen):
             time_culc = calculate_time(mm_user=timer.pomodoro_time)
             screen_timer.timer_start_time = time_culc
             screen_timer.ids.time_label.text = time_culc
+            screen_timer.ids.title_label.text = timer.title
             screen_timer.source_timer_names = gen_types_timers(count_pomodoro=timer.count_pomodoro)
 
             self.manager.state_machine = screen_timer.source_timer_names.copy()
