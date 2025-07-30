@@ -2,7 +2,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 
-from kawai_focus.utils.utils import data_json
+from kawai_focus.utils.utils import data_json, custom_timer, calculate_time
 
 
 class TimerScreen(Screen):
@@ -22,6 +22,22 @@ class TimerScreen(Screen):
         self.sound_stop_event = None
         self.timer = None
         self.timer_start_time = None
+        self.source_timer_names = None
+
+    def check_timer(self) -> None:
+        """Метод для выбора таймера"""
+        
+        current_timer_name = self.manager.state_machine.pop(0)
+        
+        if current_timer_name == 'pomodoro':
+            self.timer_generator = custom_timer(mm_user=self.timer.pomodoro_time)
+            self.ids.time_label.text = calculate_time(mm_user=self.timer.pomodoro_time)
+        elif current_timer_name == 'break':
+            self.timer_generator = custom_timer(mm_user=self.timer.break_time)
+            self.ids.time_label.text = calculate_time(mm_user=self.timer.break_time)
+        else:
+            self.timer_generator = custom_timer(mm_user=self.timer.break_long_time)
+            self.ids.time_label.text = calculate_time(mm_user=self.timer.break_long_time)
 
     def start_timer(self, instance) -> None:
         """Метод для запуска таймера"""
@@ -30,8 +46,11 @@ class TimerScreen(Screen):
             self.paused = False
         else:
             # Инициализация генератора таймера
+            if len(self.manager.state_machine) and self.timer_generator is None:
+                self.check_timer()
+            
             self.remaining_time = next(self.timer_generator, self.zero_time)
-        
+
         # Запуск обновления времени каждую секунду
         Clock.schedule_interval(self.update_time, 1)
 
@@ -56,6 +75,12 @@ class TimerScreen(Screen):
         if self.sound_stop_event:
             Clock.unschedule(self.sound_stop_event)
             self.sound_stop_event = None
+
+        if len(self.manager.state_machine):
+            self.check_timer()
+        else:
+            self.manager.state_machine = self.source_timer_names.copy()
+            self.check_timer()
 
     def play_sound(self, dt) -> None:
         """Метод для воспроизведения звука"""
