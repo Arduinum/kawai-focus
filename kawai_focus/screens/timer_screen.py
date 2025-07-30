@@ -24,7 +24,7 @@ class TimerScreen(Screen):
         self.timer_start_time = None
         self.source_timer_names = None
 
-    def check_timer(self) -> None:
+    def choice_timer(self) -> None:
         """Метод для выбора таймера"""
         
         current_timer_name = self.manager.state_machine.pop(0)
@@ -53,7 +53,7 @@ class TimerScreen(Screen):
         else:
             # Инициализация генератора таймера
             if len(self.manager.state_machine) and self.timer_generator is None:
-                self.check_timer()
+                self.choice_timer()
             
             self.ids.stop_button.opacity = 1
             self.ids.stop_button.disabled = False
@@ -88,7 +88,7 @@ class TimerScreen(Screen):
         if not len(self.manager.state_machine):
             self.manager.state_machine = self.source_timer_names.copy()
 
-        self.check_timer()    
+        self.choice_timer()    
 
     def play_sound(self, dt) -> None:
         """Метод для воспроизведения звука"""
