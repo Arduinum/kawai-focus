@@ -1,10 +1,8 @@
 from sqlalchemy import select, insert, update, delete
-from sqlalchemy.exc import NoResultFound
 
 from kawai_focus.schemas import TimerModel, TimerListModel
 from kawai_focus.database.session import db
 from kawai_focus.database.models import Timer
-from kawai_focus.utils.errors import ErrorMessage
 from kawai_focus.database.decor_erors import crud_error_guard
 
 

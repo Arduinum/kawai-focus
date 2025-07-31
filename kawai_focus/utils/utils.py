@@ -71,3 +71,12 @@ def calculate_time(mm_user: int) -> str:
         f"{'0' + str(valid_data.hh) if valid_data.hh <= 9 else valid_data.hh}:"
         f"{'0' + str(valid_data.mm) if valid_data.mm <= 9 else valid_data.mm}:00"
     )
+
+
+def gen_types_timers(count_pomodoro: int) -> list[str]:
+    """Функция для генерирования списка типов таймеров для очереди"""
+
+    types_timers_list = ['break' if num % 2 == 0 else 'pomodoro' for num in range(1, count_pomodoro * 2)]
+    types_timers_list.append('long_break')
+
+    return types_timers_list

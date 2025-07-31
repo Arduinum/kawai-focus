@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kawai_focus.custom_widgets.timer_wigets import TimeTomatoInput
 from kawai_focus.schemas import TimerModel
 from kawai_focus.database.cruds import new_timer
-from kawai_focus.utils.utils import calculate_time, custom_timer
+from kawai_focus.utils.utils import calculate_time, gen_types_timers
 from kawai_focus.screens.validators_fields import validate_title
 
 
@@ -38,7 +38,10 @@ class TimerConstructorScreen(Screen):
             time_culc = calculate_time(mm_user=timer.pomodoro_time)
             screen_timer.timer_start_time = time_culc
             screen_timer.ids.time_label.text = time_culc
-            screen_timer.timer_generator = custom_timer(mm_user=timer.pomodoro_time)
+            screen_timer.ids.title_label.text = timer.title
+            screen_timer.source_timer_names = gen_types_timers(count_pomodoro=timer.count_pomodoro)
+
+            self.manager.state_machine = screen_timer.source_timer_names.copy()
             self.manager.current = 'timers_screen'
 
 
