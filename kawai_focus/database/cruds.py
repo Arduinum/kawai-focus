@@ -1,6 +1,6 @@
 from sqlalchemy import select, insert, update, delete
 
-from kawai_focus.schemas import TimerModel, TimerListModel
+from kawai_focus.schemas import TimerModel
 from kawai_focus.database.session import db
 from kawai_focus.database.models import Timer
 from kawai_focus.database.decor_erors import crud_error_guard
@@ -26,15 +26,30 @@ def get_timer(timer_id: int) -> TimerModel:
 
 
 @crud_error_guard
-def list_timers() -> list[TimerListModel]:
+def list_timers() -> list[dict[str, int | str]]:
     """Функция для получения списка таймеров"""
 
     with db.get_session() as session:
-        query = select(Timer.id, Timer.title)
+        query = select(
+            Timer.id, 
+            Timer.title,
+            Timer.pomodoro_time,
+            Timer.count_pomodoro
+        )
         result = session.execute(query)
         timers = result.mappings().fetchall()
         
-        return [TimerListModel.model_validate(obj=accept, from_attributes=True) for accept in timers]
+        return [
+            {
+                'timer_id': timer.id, 
+                'text': (
+                    f'{timer.title}\n'
+                    f'Помидоров: {timer.count_pomodoro}, '
+                    f'размер помидора: {timer.pomodoro_time}'
+                )
+            }
+            for timer in timers
+        ]
 
 
 @crud_error_guard

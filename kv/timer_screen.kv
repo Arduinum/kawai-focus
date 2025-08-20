@@ -2,51 +2,71 @@
 
 <TimerScreen>:
     FloatLayout:
-        # Label для названия таймера
         Label:
             id: title_label
             size_hint: None, None
-            pos_hint: {'center_x': 0.3, 'center_y': 0.7}
+            pos_hint: {"center_x": 0.3, "center_y": 0.7}
 
-        # Label для типа таймера
         Label:
             id: type_timer_label
-            text: 'Помидор'
+            text: "Помидор"
             size_hint: None, None
-            pos_hint: {'center_x': 0.7, 'center_y': 0.7}
+            pos_hint: {"center_x": 0.7, "center_y": 0.7}
 
-        # Кнопка "Старт"
         Button:
-            text: 'Старт'
+            text: "Старт"
             size_hint: None, None
             height: 40
             width: 100
-            pos_hint: {'center_x': 0.3, 'center_y': 0.5}
+            pos_hint: {"center_x": 0.3, "center_y": 0.5}
             on_release: root.start_timer(self)
 
-        # Кнопка "Пауза"
         Button:
-            text: 'Пауза'
+            text: "Пауза"
             size_hint: None, None
             height: 40
             width: 100
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
             on_release: root.pause_timer(self)
 
-        # Кнопка "Стоп"
         Button:
             id: stop_button
-            text: 'Стоп'
+            text: "Стоп"
             opacity: 0
             disabled: True
             size_hint: None, None
             height: 40
             width: 100
-            pos_hint: {'center_x': 0.7, 'center_y': 0.5}
+            pos_hint: {"center_x": 0.7, "center_y": 0.5}
             on_release: root.stop_timer(self)
 
-        # Label для отображения времени
         Label:
             id: time_label
             size_hint: None, None
-            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+            pos_hint: {"center_x": 0.5, "center_y": 0.6}
+
+        Label:
+            id: title_warning
+            text: ""
+            color: (1, 0.3, 0.3, 1)
+            font_size: 14
+            size_hint_y: None
+            height: 20
+            pos_hint: {"center_x": 0.5, "center_y": 0.4}
+
+        Button:
+            text: "Назад"
+            size_hint: None, None
+            height: 40
+            width: 100
+            pos_hint: {"center_x": 0.3, "center_y": 0.1}
+            on_press: root.back(self)
+
+        Button:
+            id: del_timer
+            text: "Удалить"
+            size_hint: None, None
+            height: 40
+            width: 120
+            pos_hint: {"center_x": 0.7, "center_y": 0.1}
+            on_press: root.delete_timer(self)

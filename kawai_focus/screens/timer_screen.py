@@ -3,6 +3,7 @@ from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 
 from kawai_focus.utils.utils import data_json, custom_timer, calculate_time
+from kawai_focus.database.cruds import del_timer, list_timers
 
 
 class TimerScreen(Screen):
@@ -88,7 +89,30 @@ class TimerScreen(Screen):
         if not len(self.manager.state_machine):
             self.manager.state_machine = self.source_timer_names.copy()
 
-        self.choice_timer()    
+        self.choice_timer()
+
+    def back(self, instance) -> None:
+        """Метод для кнопки назад - возврат в меню таймеров"""
+
+        if self.ids.title_warning.text:
+            self.ids.title_warning.text = ''
+            self.ids.del_timer.color = (1, 1, 1, 1)
+
+        self.manager.current = 'timers_screen'
+
+    def delete_timer(self, instance) -> None:
+        """Метод для удаления таймера"""
+
+        if not self.ids.title_warning.text:
+            self.ids.title_warning.text = ('Вы действительно хотите удалить таймер?\n'
+                                            'Если да, то нажмите кнопку "удалить" ещё раз.')
+            self.ids.del_timer.color = (1, 0.3, 0.3, 1)
+        else:
+            del_timer(timer_id=self.timer.id)
+            timers = list_timers()
+            timers_screen = self.manager.get_screen('timers_screen')
+            timers_screen.ids.timers_view.data = timers
+            self.manager.current = 'timers_screen'
 
     def play_sound(self, dt) -> None:
         """Метод для воспроизведения звука"""

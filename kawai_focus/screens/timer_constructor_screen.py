@@ -33,7 +33,7 @@ class TimerConstructorScreen(Screen):
         )
 
         if timer:
-            screen_timer = self.manager.get_screen('timers_screen')
+            screen_timer = self.manager.get_screen('timer_screen')
             screen_timer.timer = timer
             time_culc = calculate_time(mm_user=timer.pomodoro_time)
             screen_timer.timer_start_time = time_culc
@@ -42,10 +42,10 @@ class TimerConstructorScreen(Screen):
             screen_timer.source_timer_names = gen_types_timers(count_pomodoro=timer.count_pomodoro)
 
             self.manager.state_machine = screen_timer.source_timer_names.copy()
-            self.manager.current = 'timers_screen'
+            self.manager.current = 'timer_screen'
 
 
     def back(self, instance) -> None:
         """Метод для кнопки назад - возврат в меню таймеров"""
 
-        pass
+        self.manager.current = 'timers_screen'
