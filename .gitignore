@@ -173,3 +173,6 @@ cython_debug/
 
 # VSCODE
 .vscode/
+
+# examples
+examples/
