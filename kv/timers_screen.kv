@@ -1,49 +1,72 @@
 #:kivy 2.3.1
 
+# Кастомная панель для каждого таймера
+<ExpansionPanelItem>:
+    MDExpansionPanelHeader:
+        MDListItem:
+            theme_bg_color: "Custom"
+            md_bg_color: self.theme_cls.surfaceContainerLowColor
+            ripple_effect: False
+
+            MDListItemSupportingText:
+                text: root.title
+
+            TrailingPressedIconButton:
+                id: chevron
+                icon: "chevron-right"
+                on_release: app.tap_expansion_chevron(root, chevron)
+
+    MDExpansionPanelContent:
+        orientation: "vertical"
+        padding: "12dp", 0, "12dp", "12dp"
+        md_bg_color: self.theme_cls.surfaceContainerLowColor
+        adaptive_height: True
+
+        MDLabel:
+            text: "Информация о таймере"
+            adaptive_height: True
+            padding_x: "16dp"
+            padding_y: "12dp"
+
+        MDListItem:
+            theme_bg_color: "Custom"
+            md_bg_color: self.theme_cls.surfaceContainerLowColor
+            ripple_effect: False
+            on_release: None
+            MDListItemLeadingIcon:
+                icon: "information-outline"
+            MDListItemHeadlineText:
+                text: root.info
+
+        MDBoxLayout:
+            padding: [8, 8, 0, 0]
+            size_hint_y: None
+            height: self.minimum_height
+
+            MDButton:
+                style: "outlined"
+                size_hint_x: 1
+
+                MDButtonText:
+                    text: "Открыть"          
+
+# Основной экран
 <TimersScreen>:
-    FloatLayout:
-        RecycleView:
-            id: timers_view
-            size_hint: 1, 1
-            pos_hint: {"x": 0, "y": 0}
+    md_bg_color: self.theme_cls.backgroundColor
+    
+    MDIconButton:
+        on_release: app.open_menu(self)
+        pos_hint: {"top": .98}
+        x: "12dp"
+        icon: "menu"
 
-            viewclass: "TimerButton"
+    ScrollView:
+        size_hint_x: .9
+        pos_hint: {"center_x": .5, "center_y": .5}
+        do_scroll_x: False
+        do_scroll_y: True
 
-            RecycleBoxLayout:
-                default_size: None, dp(50)
-                default_size_hint: 1, None
-                size_hint_y: None
-                height: self.minimum_height
-                orientation: "vertical"
-                spacing: dp(5)
-
-        Button:
-            id: new_timer
-            text: 'Новый таймер'
-            size_hint: None, None
-            height: 40
-            width: 120
-            pos_hint: {"center_x": 0.3, "center_y": 0.1}
-            on_release: root.switch_new_timer(self)
-
-<TimerButton@Button>:
-    timer_id: None
-    text: ""
-    on_release: app.root.get_screen("timers_screen").switch_timer(self)
-    size_hint: None, None
-    height: dp(50)
-    background_normal: ""   # отключаем стандартный фон
-    background_color: 0, 0, 0, 0  # прозрачный
-
-    canvas.before:
-        Color:
-            rgba: 1, 1, 1, 1   # белый контур
-        Line:
-            width: 1.5
-            rectangle: (self.x, self.y, self.width, self.height)
-
-        Color:
-            rgba: (0, 0.5, 1, 0.5) if self.state == "down" else (0, 0, 0, 0)  
-        Rectangle:
-            pos: self.pos
-            size: self.size
+        MDList:
+            id: container
+            spacing: "8dp"
+            padding: [56, 8, 56, 0]   # [слева, сверху, справа, снизу]
