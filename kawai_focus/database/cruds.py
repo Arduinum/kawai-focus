@@ -42,10 +42,10 @@ def list_timers() -> list[dict[str, int | str]]:
         return [
             {
                 'timer_id': timer.id, 
-                'text': (
-                    f'{timer.title}\n'
+                'title': timer.title,
+                'info': (
                     f'Помидоров: {timer.count_pomodoro}, '
-                    f'размер помидора: {timer.pomodoro_time}'
+                    f'Размер помидора: {timer.pomodoro_time}'
                 )
             }
             for timer in timers
