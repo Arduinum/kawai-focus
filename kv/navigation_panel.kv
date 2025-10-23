@@ -1,0 +1,44 @@
+#:kivy 2.3.1
+
+<CommonNavigationRailItem@MDBoxLayout>:
+    icon: ""
+    text: ""
+    orientation: "vertical"
+    spacing: "4dp"
+    size_hint_y: None
+    height: "72dp"
+
+    MDNavigationRailItemIcon:
+        icon: root.icon
+
+    MDNavigationRailItemLabel:
+        text: root.text
+
+<NavigationPanel@MDBoxLayout>:
+    orientation: "horizontal"
+
+    MDNavigationRail:
+        id: rail
+
+        MDNavigationRailFabButton:
+            icon: "clock-outline"
+
+        CommonNavigationRailItem:
+            icon: "timer-outline"
+            text: "Таймеры"
+
+        CommonNavigationRailItem:
+            icon: "compass-outline"
+            text: "Гид"
+
+        CommonNavigationRailItem:
+            icon: "information-outline"
+            text: "Инфо"
+
+        MDScreen:
+            pos_hint: {"bottom": .98}
+            y: "12dp"
+            
+            MDNavigationRailMenuButton:
+                icon: "menu"
+                on_release: app.open_menu(self)

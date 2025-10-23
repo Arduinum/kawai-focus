@@ -6,6 +6,7 @@ from kivy.animation import Animation
 from kivy.metrics import dp
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.logger import Logger
+from kivy.properties import StringProperty
 
 import logging
 
@@ -14,6 +15,7 @@ from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.expansionpanel import MDExpansionPanel
 from kivymd.uix.behaviors import RotateBehavior 
 from kivymd.uix.list import MDListItemTrailingIcon
+from kivymd.uix.navigationrail import MDNavigationRailItem
 
 from kawai_focus.menu_app import MenuApp
 from kawai_focus.screens.timers_screen import TimersScreen
@@ -29,6 +31,13 @@ class TrailingPressedIconButton(
     ...
 
 
+class CommonNavigationRailItem(MDNavigationRailItem):
+    """Класс панель навигации"""
+    
+    text = StringProperty()
+    icon = StringProperty()
+
+
 class KawaiFocusApp(MDApp, MenuApp):
     """Главный класс приложения"""
 
@@ -40,8 +49,7 @@ class KawaiFocusApp(MDApp, MenuApp):
         Builder.load_file('kv/timers_screen.kv')
 
         self.screen_manager = MDScreenManager()
-        self.timers_screen = TimersScreen(name='timers_screen')
-        self.screen_manager.add_widget(self.timers_screen)
+        self.screen_manager.add_widget(TimersScreen(name='timers_screen'))
 
         return self.screen_manager
 
