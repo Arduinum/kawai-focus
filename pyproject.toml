@@ -1,7 +1,7 @@
 [project]
 name = "kawai-focus"
 version = "0.1.0"
-description = "Kawai.Focus - приложение для фокусировки внимания на основе таймера Pomodoro."
+description = "Kawai-Focus - приложение для фокусировки внимания на основе таймера Pomodoro."
 authors = [
     {name = "Arduinum",email = "message.chaos628@gmail.com"}
 ]

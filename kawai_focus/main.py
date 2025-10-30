@@ -41,6 +41,8 @@ class CommonNavigationRailItem(MDNavigationRailItem):
 class KawaiFocusApp(MDApp, MenuApp):
     """Главный класс приложения"""
 
+    title = 'Kawai-Focus'
+
     def build(self) -> MDScreenManager:
         """Создаёт и возвращает менеджер экранов приложения"""
         
