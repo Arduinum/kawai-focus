@@ -24,14 +24,17 @@
             icon: "clock-outline"
 
         CommonNavigationRailItem:
+            id: timers_nav
             icon: "timer-outline"
             text: "Таймеры"
 
         CommonNavigationRailItem:
+            id: guide_nav
             icon: "compass-outline"
             text: "Гид"
 
         CommonNavigationRailItem:
+            id: info_nav
             icon: "information-outline"
             text: "Инфо"
 
@@ -40,5 +43,6 @@
             y: "12dp"
             
             MDNavigationRailMenuButton:
+                id: menu
                 icon: "menu"
                 on_release: app.open_menu(self)
