@@ -1,72 +1,96 @@
 #:kivy 2.3.1
+#:include kv/navigation_panel.kv
 
 <TimerScreen>:
-    FloatLayout:
-        Label:
-            id: title_label
-            size_hint: None, None
-            pos_hint: {"center_x": 0.3, "center_y": 0.7}
+    NavigationPanel:
+        id: nav_panel
+        name: "timer_screen"
 
-        Label:
-            id: type_timer_label
-            text: "Помидор"
-            size_hint: None, None
-            pos_hint: {"center_x": 0.7, "center_y": 0.7}
+        MDAnchorLayout:
+            orientation: "vertical"
+            anchor_x: "center"
+            anchor_y: "center"
+            md_bg_color: app.theme_cls.secondaryContainerColor
 
-        Button:
-            text: "Старт"
-            size_hint: None, None
-            height: 40
-            width: 100
-            pos_hint: {"center_x": 0.3, "center_y": 0.5}
-            on_release: root.start_timer(self)
+            # Центральный блок таймера
+            MDBoxLayout:
+                orientation: "vertical"
+                size_hint: None, None
+                size: "310dp", "200dp"
+                md_bg_color: app.theme_cls.surfaceColor
+                radius: [20]
+                elevation: 4
+                padding: "16dp"
+                spacing: "12dp"
 
-        Button:
-            text: "Пауза"
-            size_hint: None, None
-            height: 40
-            width: 100
-            pos_hint: {"center_x": 0.5, "center_y": 0.5}
-            on_release: root.pause_timer(self)
+                # Заголовок блока таймера (слева вверху)
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    size_hint_y: None
+                    height: "24dp"
+                    spacing: "4dp"
 
-        Button:
-            id: stop_button
-            text: "Стоп"
-            opacity: 0
-            disabled: True
-            size_hint: None, None
-            height: 40
-            width: 100
-            pos_hint: {"center_x": 0.7, "center_y": 0.5}
-            on_release: root.stop_timer(self)
+                    MDLabel:
+                        id: title_label
+                        text: "Таймер"
+                        halign: "left"
+                        valign: "center"
+                        role: "small"
 
-        Label:
-            id: time_label
-            size_hint: None, None
-            pos_hint: {"center_x": 0.5, "center_y": 0.6}
+                    MDLabel:
+                        id: type_timer_label
+                        text: "Помидор"
+                        halign: "right"
+                        valign: "center"
+                        role: "small"
 
-        Label:
-            id: title_warning
-            text: ""
-            color: (1, 0.3, 0.3, 1)
-            font_size: 14
-            size_hint_y: None
-            height: 20
-            pos_hint: {"center_x": 0.5, "center_y": 0.4}
+                # Крупный таймер
+                MDLabel:
+                    id: time_label
+                    text: "00:00:00"
+                    halign: "center"
+                    valign: "center"
+                    font_style: "Display"
+                    role: "large"
 
-        Button:
-            text: "Назад"
-            size_hint: None, None
-            height: 40
-            width: 100
-            pos_hint: {"center_x": 0.3, "center_y": 0.1}
-            on_press: root.back(self)
+                # Кнопки
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    size_hint_y: None
+                    height: "48dp"
+                    spacing: "12dp"
+                    pos_hint: {"center_x": .5}
 
-        Button:
-            id: del_timer
-            text: "Удалить"
-            size_hint: None, None
-            height: 40
-            width: 120
-            pos_hint: {"center_x": 0.7, "center_y": 0.1}
-            on_press: root.delete_timer(self)
+                    MDButton:
+                        style: "outlined"
+                        id: start_button
+                        on_release: root.start_timer()
+                        theme_line_color: "Custom"
+                        line_color: 0, 1, 0, 1 
+
+                        MDButtonText:
+                            text: "Старт"
+
+                    MDButton:
+                        style: "outlined"
+                        id: pause_button
+                        on_release: root.pause_timer()
+                        opacity: 0
+                        disabled: True
+                        theme_line_color: "Custom"
+                        line_color: 1, 1, 0, 1
+
+                        MDButtonText:
+                            text: "Пауза"
+
+                    MDButton:
+                        style: "outlined"
+                        id: stop_button
+                        on_release: root.stop_timer()
+                        opacity: 0
+                        disabled: True
+                        theme_line_color: "Custom"
+                        line_color: 1, 0, 0, 1
+
+                        MDButtonText:
+                            text: "Стоп"

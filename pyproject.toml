@@ -18,6 +18,7 @@ dependencies = [
     "ruff (>=0.11.8,<0.12.0)",
     "kivymd @ https://github.com/kivymd/KivyMD/archive/master.zip",
     "faker (>=37.6.0,<38.0.0)",
+    "ffpyplayer (>=4.5.3,<5.0.0)",
 ]
 
 

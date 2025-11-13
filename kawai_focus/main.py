@@ -7,6 +7,7 @@ from kivy.metrics import dp
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.logger import Logger
 from kivy.properties import StringProperty
+from kivy import Config
 
 import logging
 
@@ -19,9 +20,12 @@ from kivymd.uix.navigationrail import MDNavigationRailItem
 
 from kawai_focus.menu_app import MenuApp
 from kawai_focus.screens.timers_screen import TimersScreen
+from kawai_focus.screens.timer_screen import TimerScreen
 
 
 Logger.setLevel(logging.DEBUG)
+
+Config.set('kivy', 'audio', 'ffpyplayer')  # вместо audio_sdl2
 
 
 class TrailingPressedIconButton(
@@ -49,9 +53,11 @@ class KawaiFocusApp(MDApp, MenuApp):
         self.theme_cls.theme_style = 'Dark'
         # Загрузка kv файла
         Builder.load_file('kv/timers_screen.kv')
+        Builder.load_file('kv/timer_screen.kv')
 
         self.screen_manager = MDScreenManager()
         self.screen_manager.add_widget(TimersScreen(name='timers_screen'))
+        self.screen_manager.add_widget(TimerScreen(name='timer_screen'))
 
         return self.screen_manager
 

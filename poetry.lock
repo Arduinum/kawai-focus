@@ -214,6 +214,47 @@ files = [
 tzdata = "*"
 
 [[package]]
+name = "ffpyplayer"
+version = "4.5.3"
+description = "A cython implementation of an ffmpeg based player."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "ffpyplayer-4.5.3-cp310-cp310-macosx_10_13_universal2.whl", hash = "sha256:9c8cc4bbbfe5f01ab0568a941927972310b63fad4663f8c08712c25d23b2a8e8"},
+    {file = "ffpyplayer-4.5.3-cp310-cp310-macosx_10_13_x86_64.whl", hash = "sha256:3a5fbae10ce1de3946856dc19937daae3631c076ee98c248d4d889be8ca06320"},
+    {file = "ffpyplayer-4.5.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:0db8f81229c5f53e3c4cd60b378b5ecd6a9c40edde12e7f64eab67a52bd49ec3"},
+    {file = "ffpyplayer-4.5.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4343948aa3f031e3ba44593587b81f89ce15f8c756cad3d52fc75df1d71b02a0"},
+    {file = "ffpyplayer-4.5.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fa7d590016e95258dcbe82e972a2bea0fea1ec408cbd9f19e710bfcde6b4a397"},
+    {file = "ffpyplayer-4.5.3-cp310-cp310-win_amd64.whl", hash = "sha256:73caa0c12ce57dfa033280e9b4b3dfb7965d15c18f190b56d57b16b4b014c3b9"},
+    {file = "ffpyplayer-4.5.3-cp311-cp311-macosx_10_13_universal2.whl", hash = "sha256:7c9799e86a4c197c647e3ece6a8a1d026b2deb21e0a5b5bffbf49eac2a876168"},
+    {file = "ffpyplayer-4.5.3-cp311-cp311-macosx_10_13_x86_64.whl", hash = "sha256:a5728d1b3e4a2e449893b766eab4e35fcccb1e6e53a2c3321bf745f1a86c27cf"},
+    {file = "ffpyplayer-4.5.3-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:b592ee9f6c71ba8d768ebc032ce30e3aaeff3be3c4cba2fcf7fed4a36071f169"},
+    {file = "ffpyplayer-4.5.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c2d4f6c779ae5038e321e84e1da7570f9ea9ae3d7993054c60ad1338c2d5da38"},
+    {file = "ffpyplayer-4.5.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:29490c57b86c5e48ed0d12c974ca83ee4dd7d2cc360f400115e64e8afb4436ef"},
+    {file = "ffpyplayer-4.5.3-cp311-cp311-win_amd64.whl", hash = "sha256:3e613fe88c2fd1f3f7c9f84b3e153c90b1222f7e4dbf92a280d449c6217256bf"},
+    {file = "ffpyplayer-4.5.3-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:666bfed646b52014895f30c8d9d10b416a616911ae496a643f9980b45cc24b74"},
+    {file = "ffpyplayer-4.5.3-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:bb4bd6d9d1ee37cfe8f470aa9b49dc79f1b4761c2c5b44e4784740c8efb8cc22"},
+    {file = "ffpyplayer-4.5.3-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:5c79aa4c82b414689377b1e0111c61b12c8b2b3b0ed961670ec5f1fbd873b967"},
+    {file = "ffpyplayer-4.5.3-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2545160450f8dacb1de0f37b2438a61a301610a1f50c1878edf87d19ed9782a1"},
+    {file = "ffpyplayer-4.5.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b92f2b399b25404b688093b605109ef647a7b4314d6bbb24a81c738646e77b87"},
+    {file = "ffpyplayer-4.5.3-cp312-cp312-win_amd64.whl", hash = "sha256:7eefb1060e2df8534eec245e1f7e228b4b53853a0b4f508a124b4b83c6f2c56c"},
+    {file = "ffpyplayer-4.5.3-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:441888f42b76dbd7c3005f44d7145f713a1d8ce23351bbc480b9fa05e4662afb"},
+    {file = "ffpyplayer-4.5.3-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:549151bb125c9f2a6d7ebddf62290459a1624cf1a9562e78ff07ead537fdbbae"},
+    {file = "ffpyplayer-4.5.3-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:50917a4b25fd648ed76991d1703cd5940bcce9b3b0e824108483b2f4fce244f9"},
+    {file = "ffpyplayer-4.5.3-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3e012cc1c943570009fad024a675bdf43b31e8e1d0c0709715e611bdf5ab3959"},
+    {file = "ffpyplayer-4.5.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:586b04cd59b1bc3a759d9772de281172480e166778693474249ae1e1254a427f"},
+    {file = "ffpyplayer-4.5.3-cp313-cp313-win_amd64.whl", hash = "sha256:2dc1dc9dc6fddc7812c8451e14544aa01ecdaaee8c2ca705187925c3ff75d12d"},
+    {file = "ffpyplayer-4.5.3-cp39-cp39-macosx_10_13_universal2.whl", hash = "sha256:6ab4283201c6e07fd976f830ae0fb96157d904c33e5366415b50fcdec80a3247"},
+    {file = "ffpyplayer-4.5.3-cp39-cp39-macosx_10_13_x86_64.whl", hash = "sha256:951e65db450aec868df31c84b2d8b10ed854f80688f7360d829d641709917067"},
+    {file = "ffpyplayer-4.5.3-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:f750f0b9e1274bf4db89ef1c83681f40474a37636a76ebfdb729ff99611de66c"},
+    {file = "ffpyplayer-4.5.3-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8ddb132009b3109e6d6978bd5c89b1d9ca04c19966fe2bebd4a1cccf2ff8bbab"},
+    {file = "ffpyplayer-4.5.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f37e5eba45bbf042a4756e72f4621864f51f949399960037438171a4bd47675b"},
+    {file = "ffpyplayer-4.5.3-cp39-cp39-win_amd64.whl", hash = "sha256:0335ee8e0c603799a2b76cd8e125632942f48990ee55c9747c5541744184b218"},
+    {file = "ffpyplayer-4.5.3.tar.gz", hash = "sha256:8b9623e04997ba7bbf5476313aa8d9eae2665c65f403b5deff4ac51f16155e7e"},
+]
+
+[[package]]
 name = "filetype"
 version = "1.2.0"
 description = "Infer file type and MIME type of any file/buffer. No external dependencies."
@@ -1213,5 +1254,5 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.12,<4.0"
-content-hash = "816dd58321a6a8a40acd2b7654f2ebc31aa77336462f61bfbbff781f0585b1cb"
+python-versions = ">=3.12,<3.15"
+content-hash = "4a7c690b6c5e8432b3b7d8b36e5411560f5778581bef9cc70d84fe1a2b5edb1a"
