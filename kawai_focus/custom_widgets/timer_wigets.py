@@ -12,7 +12,7 @@ class BaseNumBehavior:
 
 
 class TimeTomatoInput(TextInput, BaseNumBehavior):
-    """Класс для поля ввода колличества помидорово"""
+    """Класс для поля ввода колличества помидоров"""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
