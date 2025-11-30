@@ -9,6 +9,15 @@ class MenuApp:
     
     menu: MDDropdownMenu = None
 
+    def switch_screen(self, item) -> None:
+        """Переключает экран"""
+
+        screen_manager = self.root
+
+        match item.text:
+            case 'Таймеры':
+                screen_manager.current = 'timers_screen'
+
     def open_menu(self, menu_button) -> None:
         """Открывает выпадающее меню"""
 
@@ -18,7 +27,7 @@ class MenuApp:
             'Цвет темы': lambda: self.set_palette(),
             'Стиль темы': lambda: self.switch_theme(),
             'Тип схемы': lambda: self.set_scheme_type(),
-            'Новый таймер': None
+            # 'Новый таймер': None
         }.items():
             menu_items.append(
                 {
