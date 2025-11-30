@@ -17,6 +17,7 @@ from kivymd.uix.expansionpanel import MDExpansionPanel
 from kivymd.uix.behaviors import RotateBehavior 
 from kivymd.uix.list import MDListItemTrailingIcon
 from kivymd.uix.navigationrail import MDNavigationRailItem
+from kivymd.uix.boxlayout import MDBoxLayout
 
 from kawai_focus.menu_app import MenuApp
 from kawai_focus.screens.timers_screen import TimersScreen
@@ -46,6 +47,7 @@ class KawaiFocusApp(MDApp, MenuApp):
     """Главный класс приложения"""
 
     title = 'Kawai-Focus'
+    icon = 'images/icon.png'
 
     def build(self) -> MDScreenManager:
         """Создаёт и возвращает менеджер экранов приложения"""
