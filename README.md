@@ -48,11 +48,11 @@ Kawai-Focus - приложение для фокусировки внимани�
 
 ## Запуск
 
-**Разработка dev:**
+**Разработка dev (Linux):**
 
-`poetry install && poetry run kawai-focus`
+`poetry install && alembic upgrade head && poetry run filling_example_timers`  
 
-Для установки может потребоваться обновить хеши в poetry!
+`poetry run kawai-focus`
 
 **Linux:**
 
