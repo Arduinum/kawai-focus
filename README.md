@@ -14,6 +14,38 @@ Kawai-Focus - приложение для фокусировки внимани�
 - **Kivy** - фреймворк для создания кроссплатформенных приложений;
 - **Форк KivyMD 2.0.0** - Material Design на Kivy.
 
+## Экраны
+
+**Экран Таймеры:**
+
+![alt text](screen_examples/timers-1.png)
+
+![alt text](screen_examples/timers-2.png)
+
+**Экран Таймер:**
+
+![alt text](screen_examples/timer-1.png)
+
+![alt text](screen_examples/timer-2.png)
+
+![alt text](screen_examples/timer-3.png)
+
+![alt text](screen_examples/timer-4.png)
+
+![alt text](screen_examples/timer-5.png)
+
+**Экран Конструктор таймеров:**
+
+В данный момент отключен, провобится работа по изменению дизана!
+
+**Смена тем (примеры):**
+
+![alt text](screen_examples/theme-1.png)
+
+![alt text](screen_examples/theme-2.png)
+
+![alt text](screen_examples/theme-3.png)
+
 ## Автор
 
 **Разработчик проекта:**
