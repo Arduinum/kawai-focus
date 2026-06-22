@@ -73,8 +73,6 @@ Kawai-Focus - приложение для фокусировки внимани�
 - **Имя и Фамилия** - Евгений Каддо
 - **Никнейм** - Arduinum628
 
-Подробно рассказываю о процессе написания кода приложения в своих статьях <a href="https://pressanybutton.ru/category/kawai-focus/">kawai-focus</a> на сайте <a href="https://pressanybutton.ru">Код на салфетке</a>.
-
 <details>
   <summary>
     <strong>
